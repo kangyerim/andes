@@ -1,0 +1,68 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.andes.web.mappers.PicnicMapper">
+    <insert id="insertPicnic"
+            parameterType="com.andes.web.picnic.PicnicDTO">
+        insert station_name stationName, station_type stationType, road_address roadAddress,
+        branch_address branchAddress, latitude, hardness, oper_start operStart,
+        oper_end operEnd, close_day closeDay, charge_type chargeType,
+        service_charge serviceCharge, holding_num holdingNum, holder_num holderNum,
+        air_inject_able airInjectAble, air_inject_type airInjectType, repair_able repairAble,
+        manage_tel manageTel, manage_agency manageAgency, db_date manageAgency
+        into picnic
+        values (#{stationName},#{stationType},#{roadAddress},#{branchAddress},#{latitude},#{hardness},
+        #{operStart},#{operEnd},#{closeDay},#{chargeType},#{serviceCharge},#{holdingNum},
+        #{holerNum},#{airInjectAble},#{airInjetType},#{repairAble},#{manageTel},
+        #{manageAgency},#{manageAgency}) where station_name like #{stationName}
+    </insert>
+
+    <select id="selectPicnics"
+            resultType="com.andes.web.picnic.PicnicDTO"
+            parameterType="com.andes.web.proxy.Pager">
+        select station_name stationName,branch_address branchAddress, holding_num holdingNum, holder_num holderNum
+        from picnic
+        <if test="searchWord != null">
+            where station_name like '%${searchWord}%'
+            or branch_address like '%${searchWord}%'
+        </if>
+        limit #{rowStart},#{pageSize}
+    </select>
+
+    <select id="selectAll"
+            resultType="com.andes.web.picnic.PicnicDTO"
+            parameterType="com.andes.web.proxy.Pager">
+        select station_name stationName,branch_address branchAddress, holding_num holdingNum, holder_num holderNum
+        from picnic
+        limit #{rowStart},#{pageSize}
+    </select>
+
+    <select id="selectPicnic"
+            resultType="com.andes.web.picnic.PicnicDTO">
+      select station_name stationName, station_type stationType, road_address roadAddress,
+        branch_address branchAddress, latitude, hardness, oper_start operStart,
+        oper_end operEnd, close_day closeDay, charge_type chargeType,
+        service_charge serviceCharge, holding_num holdingNum, holder_num holderNum,
+        air_inject_albe airInjectAble, air_inject_type airInjectType, repair_able repairAble,
+        manage_tel manageTel, manage_agency manageAgency, db_date manageAgency
+      from picnic
+      where station_name = #{stationName} or road_address = #{roadAddress}
+    </select>
+
+    <select id="count"
+            resultType="int">
+      select count(*)
+      from picnic
+    </select>
+
+    <select id="searchCount"
+            parameterType="String"
+            resultType="int">
+        select count(*)
+        from picnic
+        where station_name like '%${searchWord}%'
+        or branch_address like '%${searchWord}%'
+    </select>
+
+</mapper>
