@@ -36,7 +36,6 @@ public class PicnicController {
         pager.setSearchWord(searchWord);
         pager.paging(picnicMapper.searchCount(searchWord));
 
-        System.out.println("~~~~~~~~findSOME ::::" + picnicMapper.searchCount(searchWord));
 
 
         Function<Pager, List<PicnicDTO>> f = p -> picnicMapper.selectPicnics(p);
@@ -45,7 +44,6 @@ public class PicnicController {
         box.put("pager", pager);
         box.put("list", l);
 
-        System.out.println("box에 담긴 pager의 수   : " + pager);
         return box.get();
     }
 

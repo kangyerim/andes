@@ -5,6 +5,7 @@ import SignUp from '../components/SignUp'
 import LogIn from "../components/LogIn";
 import FifTeen from "../components/FifTeen";
 import FifTeenSome from "../components/FifTeenSome";
+import MyPage from "../components/MyPage";
 
 Vue.use(router)
 
@@ -16,6 +17,7 @@ export default new router({
         {path : '/signup', component: SignUp},
         {path : '/login', component: LogIn},
         {path : '/fifteen', component: FifTeen},
-        {path : '/fifTeenSome', component: FifTeenSome}
+        {path : '/fifTeenSome', component: FifTeenSome},
+        {path : '/myPage', component: MyPage}
     ]
 })

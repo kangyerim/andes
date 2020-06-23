@@ -1,10 +1,14 @@
 package com.andes.web.member;
 
+import com.andes.web.proxy.Box;
 import com.andes.web.util.Messenger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,52 +16,51 @@ import java.util.Map;
 @RequestMapping("/members")
 @CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
 public class MemberController {
-    @Autowired MemberService memberService;
-    @Autowired Member member;
+    static Logger log = LoggerFactory.getLogger(MemberController.class);
 
-    @PostMapping("")
-    public Messenger post(@RequestBody Member member){
-        System.out.println(member);
-        memberService.signIn(member);
-        return Messenger.SUCCESS;
-    }
+    @Autowired MemberRepository repository;
+    @Autowired Box<Object> box;
 
-    @PostMapping("/{userId}/login")
-    public Map<String, Object> login(@PathVariable String userId, @RequestBody Member param){
-        System.out.println("컨트롤러이에서ㅏ얼ㅇㄴㄹㅁ" + param);
-        Map<String, Object> map = new HashMap<>();
-        member = memberService.access(param);
-
-        if(member != null) {
-            map.put("result", true);
-        } else {
-            map.put("result", false);
+    @PostMapping("/signin")
+    public Map<?,?> signIn(@RequestBody Member member){
+        log.info("signIn()");
+        box.clear();
+        if(0 < repository.count()){
+            Iterator<Member> itr = repository.findAll().iterator();
+            while (itr.hasNext()){
+                if(itr.next().getUserId().equals(member.getUserId())){
+                    box.put("duplication", "true");
+                    box.put("result", "false");
+                    break;
+                }
+            }
+        } else if(box.get("duplication") == null) {
+            Member newMember = new Member();
+            newMember.setUserId(member.getUserId());
+            newMember.setPassword(member.getPassword());
+            newMember.setUserName(member.getUserName());
+            newMember.setEmail(member.getEmail());
+            repository.save(newMember);
+            box.put("result","true");
         }
-        map.put("user", member);
-        System.out.println("!!!!!!!~~~~~~~~~~~~~~" + map);
-        return map;
+        return box.get();
     }
 
-    @GetMapping("")
-    public List<Member> list(){
-        return memberService.listAll();
-    }
-
-    @GetMapping("/{userId}")
-    public Member detail(@PathVariable String userId){
-        return memberService.listOne(userId);
-    }
-
-    @PutMapping("/{userId}")
-    public Messenger put(@RequestBody Member member){
-        memberService.modify(member);
-        return Messenger.SUCCESS;
-    }
-
-    @DeleteMapping("/{userId}")
-    public Messenger delete(@RequestBody Member member){
-        memberService.remove(member);
-        return Messenger.SUCCESS;
+    @PutMapping("/{update}")
+    public Map<?,?> update(@PathVariable String update, Member member){
+        log.info("update()");
+        box.clear();
+        Iterator<Member> itr = repository.findAll().iterator();
+        while (itr.hasNext()){
+            Member next = itr.next();
+            if(next.getUserId().equals(member.getUserId()) && next.getPassword().equals(member.getPassword())){
+                repository.updatePassword(member.getUserId(), update);
+                box.put("result","true");
+                break;
+            }
+        }
+        if(box.get("result") == null) box.put("result", "false");
+        return box.get();
     }
 
 

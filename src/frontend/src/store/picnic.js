@@ -17,12 +17,10 @@ const actions = {
                 state.pager = data.pager
                 state.searchWord = payload.searchWord
                 state.pages = []
-                alert(data.pager.pageEnd)
                 let i = data.pager.pageStart
                 for(; i <= data.pager.pageEnd ; i++ ){
                     state.pages.push(i + 1)
                 }
-                alert(state.pages)
                 commit('SEARCH')
             })
             .catch(()=>{

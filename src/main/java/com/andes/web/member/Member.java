@@ -1,51 +1,27 @@
 package com.andes.web.member;
 
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.stereotype.Component;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 
-@Component
+@Data
+@Entity(name = "member")
+@NoArgsConstructor
 public class Member {
-    private int memberNo;
-    private String userId, password, userName, birthDate;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long memberNo;
 
-    public int getMemberNo() {
-        return memberNo;
-    }
+    @Column(length = 20, nullable = false)
+    private String userId, password, userName, email;
 
-    public void setMemberNo(int memberNo) {
-        this.memberNo = memberNo;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
+    @Builder
+    public Member(String userId, String password, String userName, String email){
         this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
         this.userName = userName;
+        this.email = email;
     }
 
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
 }

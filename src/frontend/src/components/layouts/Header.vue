@@ -7,7 +7,7 @@
                 <td class="td2"></td>
                 <td>
                     <div class="top">
-                        <a>마이페이지</a>
+                        <a><router-link to="/myPage">마이페이지</router-link></a>
                         <a @click="logout">로그아웃</a>
                     </div>
                 </td>

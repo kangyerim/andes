@@ -19,6 +19,7 @@
             >
                 <v-text-field
                         v-model=password
+                        type="password"
                         :rules="passRules"
                         :counter="20"
                         label="패스워드"

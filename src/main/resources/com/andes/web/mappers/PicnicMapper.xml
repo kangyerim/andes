@@ -64,5 +64,4 @@
         where station_name like '%${searchWord}%'
         or branch_address like '%${searchWord}%'
     </select>
-
 </mapper>
