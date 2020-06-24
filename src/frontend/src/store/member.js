@@ -3,13 +3,17 @@ import router from '../router'
 
 const state = {
     context : 'http://localhost:5000',
+    login : sessionStorage.getItem("login"),
+    member : sessionStorage.getItem("userId"),
+    fail : false,
+    duplication : false,
     auth : false,
     user : {}
 }
 
 const actions = {
     async submission({commit}, payload){
-        axios.post(`${state.context}/members`,payload ,{
+        axios.post(`${state.context}/members/signin`,payload ,{
                 authorization: "JWT fefege..",
                 Accept: "application/json",
                 "Content-Type": "application/json"})
@@ -22,14 +26,14 @@ const actions = {
             })
     },
     async login({commit},payload){
-        axios.post(`${state.context}/members/${payload.userId}/login`,payload,{
+        axios.post(`${state.context}/members/login`,payload,{
             authorization: "JWT fefege..",
             Accept: "application/json",
             "Content-Type": "application/json"})
             .then(({data})=>{
                 commit('LOGIN',data)
                 router.push('/')
-                alert('ㄷㅏ녀왔습니다')
+                alert('로그인 성공')
             })
             .catch(()=>{
                 alert('member.js의 login catch')
@@ -43,12 +47,19 @@ const actions = {
 
 const mutations = {
     LOGIN(state, data){
-        state.auth = true
-        state.user = data.member
+       if(data.result === 'true'){
+           state.fail = false
+           state.auth = true
+           sessionStorage.setItem('login', 'true')
+           sessionStorage.setItem('userId', data.member.userId)
+       } else {
+            state.fail = true
+       }
     },
     LOGOUT(state){
         state.auth = false
-        state.user = {}
+        sessionStorage.removeItem('login')
+        sessionStorage.removeItem('userId')
     },
     SUCCESS(){
         router.push('/').catch()

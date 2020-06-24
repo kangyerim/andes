@@ -41,8 +41,8 @@
                     md="4"
             >
                 <v-text-field
-                        v-model=birthDate
-                        :rules="birthRules"
+                        v-model=email
+                        :rules="emailRule"
                         :counter="7"
                         label="생일"
                         required
@@ -80,15 +80,15 @@
                 v => !!v || 'name is required',
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
-            birthDate: '',
-            birthRules: [
-                v => !!v || 'birthDate is required',
-                v => /.+@.+/.test(v) || 'birthDate must be valid',
+            email: '',
+            emailRules: [
+                v => !!v || 'email is required',
+                v => /.+@.+/.test(v) || 'email must be valid',
             ],
         }),
         methods: {
             submission() {
-                this.$store.dispatch('member/submission',{userName : this.userName, password : this.password, userId : this.userId, birthDate : this.birthDate})
+                this.$store.dispatch('member/submission',{userName : this.userName, password : this.password, userId : this.userId, email : this.email})
             },
             reset() {
                 this.password = ''

@@ -23,7 +23,7 @@ public class MemberController {
 
     @PostMapping("/signin")
     public Map<?,?> signIn(@RequestBody Member member){
-        log.info("signIn()");
+        log.info("~~~signIn()~~~~");
         box.clear();
         if(0 < repository.count()){
             Iterator<Member> itr = repository.findAll().iterator();
@@ -46,16 +46,32 @@ public class MemberController {
         return box.get();
     }
 
-    @PutMapping("/{update}")
-    public Map<?,?> update(@PathVariable String update, Member member){
-        log.info("update()");
+//    @PutMapping("/{update}")
+//    public Map<?,?> update(@PathVariable String update, Member member){
+//        log.info("update()");
+//        box.clear();
+//        Iterator<Member> itr = repository.findAll().iterator();
+//        while (itr.hasNext()){
+//            Member next = itr.next();
+//            if(next.getUserId().equals(member.getUserId()) && next.getPassword().equals(member.getPassword())){
+//                repository.updatePassword(member.getUserId(), update);
+//                box.put("result","true");
+//                break;
+//            }
+//        }
+//        if(box.get("result") == null) box.put("result", "false");
+//        return box.get();
+//    }
+
+    @DeleteMapping("/{signOut}/{userId}")
+    public Map<?,?> signOut(@PathVariable("signOut") String userId, @PathVariable("userId") String password){
         box.clear();
         Iterator<Member> itr = repository.findAll().iterator();
-        while (itr.hasNext()){
+        while(itr.hasNext()) {
             Member next = itr.next();
-            if(next.getUserId().equals(member.getUserId()) && next.getPassword().equals(member.getPassword())){
-                repository.updatePassword(member.getUserId(), update);
-                box.put("result","true");
+            if(next.getUserId().equals(userId) && next.getPassword().equals(password)){
+                repository.deleteByUserId(userId);
+                box.put("result", "true");
                 break;
             }
         }
@@ -63,5 +79,21 @@ public class MemberController {
         return box.get();
     }
 
+    @PostMapping("/login")
+    public Map<?,?> logIn(@RequestBody Member member){
+        log.info("~~~logIn~~~");
+        box.clear();
+        Iterator<Member> itr = repository.findAll().iterator();
+        while(itr.hasNext()){
+            Member next = itr.next();
+            if(next.getUserId().equals(member.getUserId()) && next.getPassword().equals(member.getPassword())){
+                box.put("result", "true");
+                box.put("member", next);
+                break;
+            }
+        }
+        if(box.get("result") == null) box.put("result", "false");
+        return box.get();
+    }
 
 }
