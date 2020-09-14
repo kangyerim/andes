@@ -18,6 +18,7 @@
     }
 
     .footer{
+        position: relative;
         margin: 0 auto;
         padding-top : 6px;
         height: 50px;

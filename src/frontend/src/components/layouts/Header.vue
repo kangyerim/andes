@@ -3,7 +3,7 @@
         <div v-if="auth">
         <table class="header">
             <tr>
-                <td><router-link to="/"><h1 class="project_name">FIF TEEN🚴</h1></router-link></td>
+                <td><router-link to="/"><h1 class="project_name">FIFTEEN🚴</h1></router-link></td>
                 <td class="td2"></td>
                 <td>
                     <div class="top">
@@ -18,7 +18,7 @@
         <div v-else>
         <table class="header">
             <tr>
-                <td><router-link to="/"><h1 class="project_name">FIF TEEN🚴</h1></router-link></td>
+                <td><router-link to="/"><h1 class="project_name">FIFTEEN🚴</h1></router-link></td>
                 <td class="td2"></td>
                 <td>
                     <div class="top">

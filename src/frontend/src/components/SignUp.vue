@@ -8,7 +8,7 @@
                         class="justify-center"
                         v-model=userId
                         :rules="idRules"
-                        :counter="20"
+                        :counter="10"
                         label="아이디"
                         required
                 ></v-text-field>
@@ -21,7 +21,7 @@
                         v-model=password
                         type="password"
                         :rules="passRules"
-                        :counter="20"
+                        :counter="10"
                         label="패스워드"
                         required
                 ></v-text-field>
@@ -41,10 +41,10 @@
                     md="4"
             >
                 <v-text-field
-                        v-model=email
-                        :rules="emailRule"
-                        :counter="7"
-                        label="생일"
+                        v-model=address
+                        :rules="addressRule"
+                        :counter="20"
+                        label="주소"
                         required
                 ></v-text-field>
             </v-col></tr>
@@ -73,17 +73,17 @@
             password: '',
             passRules: [
                 v => !!v || 'password is required',
-                v => v.length <= 10 || 'Name must be less than 10 characters',
+                v => v.length <= 10 || 'password must be less than 10 characters',
             ],
             userName: '',
             nameRules: [
                 v => !!v || 'name is required',
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
-            email: '',
-            emailRules: [
-                v => !!v || 'email is required',
-                v => /.+@.+/.test(v) || 'email must be valid',
+            address: '',
+            addressRule: [
+                v => !!v || 'address is required',
+                v => /.+@.+/.test(v) || 'address must be valid',
             ],
         }),
         methods: {

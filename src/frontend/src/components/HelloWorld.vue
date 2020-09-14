@@ -1,12 +1,12 @@
 <template>
   <div id="background">
-    <div>
+    <div class="content">
       <table class="searches">
         <tr>
           <td></td>
-          <td><a class="introduction">🐈 고양시 공공자전거 서비스 🚴</a><br>
-            <a class="introduction">피프틴 스테이션에 자전거가 몇 개 남았는지 확인하자</a><br>
-            <a  class="introduction" @click="findAll">전체 스테이션 보기</a></td>
+          <td><a class="introduction">고양시 공공자전거 서비스</a><br>
+            <a class="introduction">피프틴파크에 자전거가 몇 개 남았는지 확인하자</a><br>
+            <a  class="introduction" @click="findAll">전체 피프틴파크 보기</a></td>
           <td></td>
         </tr>
         <tr>
@@ -40,16 +40,6 @@
 </script>
 
 <style scoped>
-  #background{
-    background-color: #b6eb7a;
-  }
-  body{
-    margin: 0px;
-    min-width: 1050px;
-    min-height: 700px;
-
-  }
-
   img{
     margin: 10px 7px;
     width: 20px;
@@ -87,6 +77,9 @@
   }
   .searches{
     text-align: center;
+  }
+  .content{
+    min-height: 740px;
   }
 
 

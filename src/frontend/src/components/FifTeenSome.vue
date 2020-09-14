@@ -3,10 +3,10 @@
         <v-simple-table class="table">
             <thead>
             <tr>
-                <th class="text-left">FIF TEEN STATION</th>
-                <th class="text-left">ADDRESS</th>
-                <th class="text-left">RentableNum</th>
-                <th class="text-left">ReturnableNum</th>
+                <th class="text-left">피프틴파크</th>
+                <th class="text-left">주소</th>
+                <th class="text-left">대여가능</th>
+                <th class="text-left">반납가능</th>
             </tr>
             </thead>
             <tbody>

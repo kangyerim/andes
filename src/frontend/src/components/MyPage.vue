@@ -1,5 +1,9 @@
 <template>
     <div>
+        <v-tabs>
+            <v-tab>즐겨찾는 피프틴파크</v-tab>
+            <v-tab>내 정보</v-tab>
+        </v-tabs>
         <div style="margin: 0 auto; width: 50%">
             <v-form>
                 <table class="login_input">
@@ -34,8 +38,8 @@
                             md="4"
                     >
                         <v-text-field
-                                v-model=birthDate
-                                label="생일"
+                                v-model=address
+                                label="주소"
                                 required
                         ></v-text-field>
                     </v-col></tr>
